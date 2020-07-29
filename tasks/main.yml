@@ -49,7 +49,7 @@
   lineinfile:
     dest: "{{ postfix_config_file }}"
     backup: yes
-    regexp: "{{ item.key }} ="
+    regexp: "{{ item }} ="
     state: absent
-  with_dict: "{{ postfix_conf_disabled }}"
+  with_items: "{{ postfix_conf_disabled }}"
   notify: check restart postfix
