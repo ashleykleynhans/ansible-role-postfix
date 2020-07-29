@@ -2,7 +2,7 @@
 
 Ansible role to configure postfix MTA.
 
-This role is based on the [https://github.com/linux-system-roles/postfix](Red Hat, Inc. postfix role),
+This role is based on the [Red Hat, Inc. postfix role](https://github.com/linux-system-roles/postfix),
 which has a couple of shortcomings in that it is not idempotent (which is an Ansible anti-pattern),
 and also only supports adding/updating configuration items, and not removing them.
 
