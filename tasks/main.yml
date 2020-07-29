@@ -1,1 +1,55 @@
 ---
+
+- name: Install Postfix
+  package:
+    name: postfix
+    state: latest
+  tags:
+    - postfix
+
+- name: Enable Postfix
+  service:
+    name: postfix
+    state: started
+    enabled: yes
+  tags:
+    - postfix
+
+- name: Add last modified header to configuration file
+  lineinfile:
+    dest: "{{ postfix_config_file }}"
+    regexp: '# Last modified:'
+    state: present
+    insertbefore: BOF  # Beginning Of File
+    line: "# Last modified: {{ ansible_date_time.date }}\n"
+  tags:
+    - postfix
+
+- name: Add Ansible managed header to configuration file
+  lineinfile:
+    dest: "{{ postfix_config_file }}"
+    regexp: 'managed by [aA]nsible'
+    state: present
+    insertbefore: BOF
+    line: "# This file is managed by Ansible"
+  tags:
+    - postfix
+
+- name: Configure Postfix | Enable configuration items
+  lineinfile:
+    dest: "{{ postfix_config_file }}"
+    backup: yes
+    regexp: "{{ item.key }} ="
+    line: "{{ item.key }} = {{ item.value }}"
+    state: present
+  with_dict: "{{ postfix_conf_enable }}"
+  notify: check restart postfix
+
+- name: Configure Postfix | Disable configuration items
+  lineinfile:
+    dest: "{{ postfix_config_file }}"
+    backup: yes
+    regexp: "{{ item.key }} ="
+    state: absent
+  with_dict: "{{ postfix_conf_enable }}"
+  notify: check restart postfix

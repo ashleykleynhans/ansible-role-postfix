@@ -1,1 +1,19 @@
 ---
+
+postfix_config_file: /etc/postfix/main.cf
+
+# Postfix configuration dictionary of items to enable, e.g.:
+# postfix_conf_enable:
+#   relay_domains: "$mydestination"
+#   relayhost: "example.com"
+#
+postfix_conf_enable: {}
+
+# Postfix configuration list of items to disable, e.g.:
+# postfix_conf_disable:
+#   - smtp_tls_security_level
+#   - meta_directory
+#   - shlib_directory
+#   - smtp_randomize_addresses
+#
+postfix_conf_disable: []
