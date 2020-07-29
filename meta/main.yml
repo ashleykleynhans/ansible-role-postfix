@@ -1,4 +1,5 @@
 galaxy_info:
+  role_name: postfix
   author: Ashley Kleynhans
   description: Ansible role to configure postfix MTA
   license: GPLv2
