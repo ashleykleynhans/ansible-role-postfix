@@ -42,7 +42,7 @@
     regexp: "{{ item.key }} ="
     line: "{{ item.key }} = {{ item.value }}"
     state: present
-  with_dict: "{{ postfix_conf_enable }}"
+  with_dict: "{{ postfix_conf_enabled }}"
   notify: check restart postfix
 
 - name: Configure Postfix | Disable configuration items
@@ -51,5 +51,5 @@
     backup: yes
     regexp: "{{ item.key }} ="
     state: absent
-  with_dict: "{{ postfix_conf_enable }}"
+  with_dict: "{{ postfix_conf_disabled }}"
   notify: check restart postfix
